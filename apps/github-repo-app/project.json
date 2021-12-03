@@ -1,0 +1,72 @@
+{
+  "root": "apps/github-repo-app",
+  "sourceRoot": "apps/github-repo-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/github-repo-app",
+        "index": "apps/github-repo-app/src/index.html",
+        "baseHref": "/",
+        "main": "apps/github-repo-app/src/main.tsx",
+        "polyfills": "apps/github-repo-app/src/polyfills.ts",
+        "tsConfig": "apps/github-repo-app/tsconfig.app.json",
+        "assets": [
+          "apps/github-repo-app/src/favicon.ico",
+          "apps/github-repo-app/src/assets"
+        ],
+        "styles": ["apps/github-repo-app/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/github-repo-app/src/environments/environment.ts",
+              "with": "apps/github-repo-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "github-repo-app:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "github-repo-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/github-repo-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/github-repo-app"],
+      "options": {
+        "jestConfig": "apps/github-repo-app/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
